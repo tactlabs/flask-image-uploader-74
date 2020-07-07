@@ -10,7 +10,11 @@
         {{ result.result }}
         
         {% if result.result == 1 %}
-    		<div>File Uploaded</div>
+        <div>File Uploaded</div>
+        
+        <div>
+          <img src="{{filepath}}" width=400 height=400 />
+        </div>
   		{% else %}
     		<div>Error : {{ result.error }}</div>
   		{% endif %}

@@ -4,12 +4,12 @@ import sys
 from flask import request
 from random import randint
 from werkzeug.utils import secure_filename
-from flask.ext.session import Session
+# from flask.ext.session import Session
 
 app = Flask(__name__)
-sess = Session()
+# sess = Session()
 
-UPLOAD_FOLDER = 'c:/test'
+UPLOAD_FOLDER = 'static/uploads/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'log'])
 
 app = Flask(__name__)
@@ -49,13 +49,17 @@ def upload_file():
     
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+
+        print('filepath : ', filepath)
         
         result = {
             'result' : 1,
-            'error' : '',
+            'error' : '0',
+            'image_location' : filepath
         }
-        return render_template('result.html', result=result)
+        return render_template('result.html', result = result, filepath = filepath)
     
     #return content
     return render_template('result.html', user=user)
@@ -67,7 +71,7 @@ if __name__ == '__main__':
     app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
 
-    sess.init_app(app)
+    # sess.init_app(app)
     
     app.run(host= host, port = port, use_reloader = False)
     
