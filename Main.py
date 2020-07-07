@@ -66,7 +66,7 @@ def upload_file():
 
 if __name__ == '__main__':
     host = os.environ.get('IP', '127.0.0.1')
-    port = int(os.environ.get('PORT', 5000))
+    port = int(os.environ.get('PORT', 6021))
     
     app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
